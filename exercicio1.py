@@ -2,7 +2,7 @@ import csv
 import numpy as np
 
 
-def extract_X_data():
+def extract_x_data():
     columns = {'timestamp': [], 'idle': [], 'memused': [], 'proc': [], 'cswch': [], 'file': [], 'sum_intr': [],
                'ldavg': [], 'tcpsck': [], 'pgfree': []}
     with open('X.csv', newline='\n') as csv_file_x:
@@ -30,4 +30,24 @@ def extract_X_data():
         print('\n')
 
 
-extract_X_data()
+def extract_y_data():
+    columns = {'timestamp': [], 'dispframes': []}
+    with open('Y.csv', newline='\n') as csv_file_y:
+        file_y = csv.reader(csv_file_y)
+        next(file_y)
+        for index, data_y in enumerate(file_y, start=1):
+            columns['timestamp'].append(int(data_y[0]))
+            columns['dispframes'].append(float(data_y[1]))
+    for key in columns:
+        print('%s Calculation' % key)
+        print('Mean: ', np.mean(columns[key]))
+        print('Maximum: ', np.max(columns[key]))
+        print('Minimum: ', np.min(columns[key]))
+        print('25th percentile: ', np.percentile(columns[key], 25))
+        print('90th percentile: ', np.percentile(columns[key], 90))
+        print('Standard deviation: ', np.std(columns[key]))
+        print('\n')
+
+
+extract_x_data()
+extract_y_data()
