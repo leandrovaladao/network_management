@@ -25,7 +25,7 @@ def get_mean_of_tec_with_more_than_eighteen_thousand_interrupts():
 def get_min_memory_utilization_for_cpu_lower_than_twenty_percent():
     columns = extract_file_x()
     min_memory = 100
-    for index, it in enumerate(columns['proc.s']):
+    for index, it in enumerate(columns['all_..idle']):
         if it < 20:
             min_memory = columns['X..memused'][index] if columns['X..memused'][index] < min_memory else min_memory
     print('Minimo de memoria utilizada: ', min_memory)
