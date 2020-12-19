@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
-from scipy.stats import gaussian_kde
-import numpy as np
 
 from extract_csv import extract_file_x
 
 BASE_DIRECTORY = 'plots/task1/'
+
 
 def plot_cpu_and_memory():
     columns = extract_file_x()

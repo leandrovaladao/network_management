@@ -2,35 +2,55 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from extract_csv import extract_file_x, extract_file_y
 import numpy as np
+import matplotlib.pyplot as plt
+
+
+BASE_DIRECTORY = '../plots/task2/'
+
 
 def do_linear_regression():
     x = extract_file_x()
     y = extract_file_y()
 
-    x = x.loc[:, x.columns != 'TimeStamp']
-    y = y.loc[:, y.columns != 'TimeStamp']
+    # y = y.loc[:, y.columns != 'TimeStamp']
 
-    train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.3)
+    x['DispFrames'] = y['DispFrames']
 
-    naive_mean = np.mean(train_y).item()
+    train_x, test_x = train_test_split(x, test_size=0.3)
+
+    tmp_train_x = train_x.iloc[:, 2:10]
+    tmp_test_x = test_x.iloc[:, 2:10]
+
+    naive_mean = np.mean(train_x['DispFrames']).item()
 
     model = LinearRegression()
 
-    model.fit(train_x, train_y)
+    model.fit(tmp_train_x, train_x['DispFrames'])
 
-    predict_results = model.predict(test_x)
+    predict_results = model.predict(tmp_test_x)
+
+    test_x['predict_results'] = predict_results
 
     sum_values = 0
     # Lista criada para conferir valores
     # list_values = []
     for index, predict_result in enumerate(predict_results):
         # list_values.append(abs(test_y['DispFrames'][test_y['DispFrames'].index[index]]-predict_result))
-        sum_values += abs(test_y['DispFrames'][test_y['DispFrames'].index[index]]-predict_result)
+        sum_values += abs(test_x['DispFrames'][test_x['DispFrames'].index[index]]-predict_result)
 
-    NMAE = (sum_values/len(test_y))/naive_mean
+    NMAE = (sum_values/len(test_x))/naive_mean
 
     print("Coeficientes: ", model.coef_)
     print("Naive Mean: ", naive_mean)
     print("Normalized Mean Absolute Error: ", NMAE)
+
+    test_x.plot(x='TimeStamp', y=['DispFrames', 'predict_results'], style='o', mfc='none')
+    plt.ylabel('Video Frame Rates')
+    plt.legend(['Measured Video Frame Rates', 'Predict Results(Model)'])
+    plt.savefig(BASE_DIRECTORY + 'exercicio1c.png')
+    plt.clf()
+
+
+
 
 do_linear_regression()
