@@ -14,7 +14,7 @@ def extract_file_y():
     return read_csv('../Y.csv')
 
 
-BASE_DIRECTORY = '../plots/task2/'
+BASE_DIRECTORY = ''
 
 
 def do_logistic_regression():

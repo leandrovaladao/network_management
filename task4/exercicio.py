@@ -14,7 +14,7 @@ def extract_file_x():
 def extract_file_y():
     return read_csv('../Y.csv')
 
-BASE_DIRECTORY = '../plots/task4/'
+BASE_DIRECTORY = ''
 
 
 def do_linear_regression():

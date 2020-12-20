@@ -7,7 +7,7 @@ def extract_file_x():
     return read_csv('../X.csv')
 
 
-BASE_DIRECTORY = '../plots/task1/'
+BASE_DIRECTORY = ''
 
 
 def plot_cpu_and_memory():
