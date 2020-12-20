@@ -3,7 +3,15 @@ import warnings
 from sklearn.linear_model import LogisticRegression, LinearRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
-from extract_csv import extract_file_x, extract_file_y
+from pandas import read_csv
+
+
+def extract_file_x():
+    return read_csv('../X.csv')
+
+
+def extract_file_y():
+    return read_csv('../Y.csv')
 
 
 BASE_DIRECTORY = '../plots/task2/'

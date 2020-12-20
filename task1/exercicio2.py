@@ -1,5 +1,10 @@
 import numpy as np
-from extract_csv import extract_file_x
+from pandas import read_csv
+
+
+def extract_file_x():
+    return read_csv('../X.csv')
+
 
 
 def get_number_of_observations_larger_than_eighty_percent():

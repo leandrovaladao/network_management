@@ -1,6 +1,14 @@
 import numpy as np
 
-from extract_csv import extract_file_x, extract_file_y
+from pandas import read_csv
+
+
+def extract_file_x():
+    return read_csv('../X.csv')
+
+
+def extract_file_y():
+    return read_csv('../Y.csv')
 
 
 def extract_x_data():

@@ -2,10 +2,17 @@ import warnings
 
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from extract_csv import extract_file_x, extract_file_y
 import numpy as np
 import matplotlib.pyplot as plt
+from pandas import read_csv
 
+
+def extract_file_x():
+    return read_csv('../X.csv')
+
+
+def extract_file_y():
+    return read_csv('../Y.csv')
 
 BASE_DIRECTORY = '../plots/task4/'
 
@@ -130,7 +137,7 @@ def do_linear_regression():
             print('\n{} - {} - {}'.format(index, key, sorted_correlation))
             plt.bar(key, dict_results[key], color=colors_list[index], bottom=False)
         plt.legend(key_list)
-        plt.savefig(BASE_DIRECTORY + 'exercicio3Method2hist.png')
+        plt.savefig(BASE_DIRECTORY + 'exercicio3Method2hist.png', facecolor='w')
         plt.clf()
 
         colors_list = ['green', 'blue', 'purple', 'red', 'orange', 'gray', 'black', 'pink', 'yellow']
@@ -138,7 +145,7 @@ def do_linear_regression():
         for index, key in enumerate(dict_results):
             plt.bar(key, dict_results[key], color=colors_list[index], bottom=False)
         plt.legend(dict_results.keys())
-        plt.savefig(BASE_DIRECTORY + 'exercicio2Method1hist.png')
+        plt.savefig(BASE_DIRECTORY + 'exercicio2Method1hist.png', facecolor='w')
         plt.clf()
 
 
@@ -167,7 +174,7 @@ def do_linear_regression_and_nmae(train_x, train_x_dispframes, test_x, test_x_di
 
     model.fit(train_x.values.reshape(-1, 1), train_x_dispframes)
 
-    naive_mean = np.mean(train_x_dispframes).item()
+    naive_mean = np.mean(train_x_dispframes)
     predict_results = model.predict(test_x.values.reshape(-1, 1))
 
     test_x['predict_results'] = predict_results

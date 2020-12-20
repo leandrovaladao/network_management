@@ -2,9 +2,17 @@ import warnings
 
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from extract_csv import extract_file_x, extract_file_y
 import numpy as np
 import matplotlib.pyplot as plt
+from pandas import read_csv
+
+
+def extract_file_x():
+    return read_csv('../X.csv')
+
+
+def extract_file_y():
+    return read_csv('../Y.csv')
 
 
 BASE_DIRECTORY = '../plots/task2/'
@@ -35,7 +43,7 @@ def do_linear_regression():
         print("Coeficientes: ", model.coef_)
 
         #Inicio 1 B
-        naive_mean = np.mean(train_x['DispFrames']).item()
+        naive_mean = np.mean(train_x['DispFrames'])
         predict_results = model.predict(tmp_test_x)
 
         test_x['predict_results'] = predict_results
@@ -58,24 +66,24 @@ def do_linear_regression():
         test_x.plot(x='TimeStamp', y=['DispFrames', 'predict_results'], style='o', mfc='none')
         plt.ylabel('Video Frame Rates')
         plt.legend(['Measured Video Frame Rates', 'Predict Results(Model)'])
-        plt.savefig(BASE_DIRECTORY + 'exercicio1c.png')
+        plt.savefig(BASE_DIRECTORY + 'exercicio1c.png', facecolor='w')
         plt.clf()
 
         #Inicio 1 D
         single_column_dataframe = test_x['DispFrames']
         single_column_dataframe.plot.kde()
-        plt.savefig(BASE_DIRECTORY + 'exercicio1Ddensity.png')
+        plt.savefig(BASE_DIRECTORY + 'exercicio1Ddensity.png', facecolor='w')
         plt.clf()
 
         single_column_dataframe = test_x['DispFrames']
         single_column_dataframe.plot.hist(bins=[x for x in range(30)])
-        plt.savefig(BASE_DIRECTORY + 'exercicio1Dhist.png')
+        plt.savefig(BASE_DIRECTORY + 'exercicio1Dhist.png', facecolor='w')
         plt.clf()
 
         #Inicio 1 E
         single_column_dataframe = test_x['list_values']
         single_column_dataframe.plot.kde()
-        plt.savefig(BASE_DIRECTORY + 'exercicio1Edensity.png')
+        plt.savefig(BASE_DIRECTORY + 'exercicio1Edensity.png', facecolor='w')
         plt.clf()
 
         # Exercicio 2
@@ -117,7 +125,7 @@ def do_linear_regression():
             nmae_n2520.append(do_linear_regression_and_nmae(train_x, test_x, 'Modelo 2B n50'))
 
         plt.boxplot([nmae_n50, nmae_n100, nmae_n200, nmae_n500, nmae_n1000, nmae_n2520])
-        plt.savefig(BASE_DIRECTORY + 'exercicio2DerrorN50.png')
+        plt.savefig(BASE_DIRECTORY + 'exercicio2DerrorN50.png', facecolor='w')
         plt.clf()
 
 
@@ -129,7 +137,7 @@ def do_linear_regression_and_nmae(train_x, test_x, model_name='', execute_print=
 
     model.fit(tmp_train_x, train_x['DispFrames'])
 
-    naive_mean = np.mean(train_x['DispFrames']).item()
+    naive_mean = np.mean(train_x['DispFrames'])
     predict_results = model.predict(tmp_test_x)
 
     test_x['predict_results'] = predict_results
